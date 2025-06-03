@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->simplePaginate(5);
+        $posts = Post::latest()->with(['user'])->simplePaginate(5);
 
         return view('post.index', compact('posts'));
     }
@@ -53,9 +53,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(string $username, Post $post)
     {
-        //
+        return view('post.show', compact('post'));
     }
 
     /**

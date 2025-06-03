@@ -16,7 +16,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('dashboard');
-    Route::resource('post', PostController::class);
-});;
+    Route::resource('post', PostController::class)->except('show');
+    Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('post.show');
+});
 
 require __DIR__ . '/auth.php';
