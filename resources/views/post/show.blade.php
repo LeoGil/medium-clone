@@ -4,14 +4,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
                 <h1 class="font-bold text-3xl mb-4">{{ $post->title }}</h1>
                 <div class="flex gap-4">
-                    @if ($post->user->image)
-                    <img src="{{ $post->user->imageUrl() }}" alt="{{ $post->user->name }}" class="w-12 h-12 rounded-full">
-                    @else
-                    <img src="https://ui-avatars.com/api/?name={{ $post->user->name }}" alt="{{ $post->user->name }}" class="w-12 h-12 rounded-full">
-                    @endif
+                    <x-user-avatar :user="$post->user" />
                     <div>
                         <div class="flex gap-2 items-center">
-                            <h3 class="font-bold text-lg text-gray-600">{{ $post->user->name }}</h3>
+                            <a href="{{ route('profile.show', $post->user) }}" class="font-bold text-lg text-gray-600 hover:underline hover:text-blue-600">{{ $post->user->name }}</a>
                             &bull;
                             <a href="#" class="text-blue-600 hover:underline">{{ __('Follow') }}</a>
                         </div>
