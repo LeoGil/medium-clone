@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicProfileController;
@@ -21,6 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('dashboard');
     Route::resource('post', PostController::class)->except('show');
     Route::get('/@{username}/{post:slug}', [PostController::class, 'show'])->name('post.show');
+    Route::post('/follow/{user}', [FollowerController::class, 'followUnfollow'])->name('follow');
 });
 
 require __DIR__ . '/auth.php';

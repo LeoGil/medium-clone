@@ -22,7 +22,7 @@
             <a href="#" class="text-blue-600 hover:underline">{{ $post->category->name }}</a>
         </div>
     </div>
-    <a href="#">
+    <a href="{{ route('post.show', [$post->user->username, $post->slug]) }}">
         <img class="rounded-l-lg w-48 h-full max-h-48 object-cover" src="{{ Storage::url($post->image) }}" alt="" />
     </a>
 </div>

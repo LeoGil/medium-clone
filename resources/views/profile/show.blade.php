@@ -21,13 +21,13 @@
                     </div>
                     <div class="w-[320px] border-l px-8">
                         <x-user-avatar :user="$user" w="32" h="32" />
-                        <div class="mt-4">
+                        <x-follow-ctr :user="$user">
                             <h2 class="font-semibold text-lg text-gray-800">
                                 {{ $user->name }}
                             </h2>
                             <div class="mt-2">
                                 <p class="text-gray-600">
-                                    26k followers
+                                   <span x-text="followersCount"></span> followers
                                 </p>
                             </div>
                             <div class="mt-2">
@@ -35,12 +35,17 @@
                                     {{ $user->bio }}
                                 </p>
                             </div>
-                            <div class="mt-4">
-                                <button class="px-4 py-1 rounded-full bg-gray-800 text-white">
-                                    Follow
-                                </button>
-                            </div>
-                        </div>
+                            @if (auth()->user() && auth()->user()->id !== $user->id)
+                                <div class="mt-4">
+                                    <button 
+                                        @click="follow()"
+                                        class="px-4 py-1 rounded-full text-white" 
+                                        x-text="following ? 'Unfollow' : 'Follow'"
+                                        :class="following ? 'bg-red-600' : 'bg-gray-800'">
+                                    </button>
+                                </div>
+                            @endauth
+                        </x-follow-ctr>
                     </div>
                 </div>
             </div>
