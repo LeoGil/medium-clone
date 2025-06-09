@@ -1,11 +1,15 @@
 <div class="flex bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 mb-8">
     <div class="p-5 flex-1">
-        <div class="flex gap-2 items-center mb-3">
-            <x-user-avatar :user="$post->user" w="6" h="6" />
-            <span class="text-sm font-medium text-gray-600 dark:text-white">
-                {{ __('By') }} {{ $post->user->name }}
-            </span>
-        </div>
+        @if (request()->is('/'))
+            <div class="flex gap-2 items-center mb-3">
+                <a href="{{ route('profile.show', $post->user) }}">
+                    <x-user-avatar :user="$post->user" w="6" h="6" />
+                </a>
+                <span class="text-sm font-medium text-gray-600 dark:text-white">
+                    <a href="{{ route('profile.show', $post->user) }}" class="hover:underline">{{ $post->user->name }}</a>
+                </span>
+            </div>
+        @endif
         <a href="{{ route('post.show', [$post->user->username, $post->slug]) }}">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $post->title }}</h5>
         </a>
