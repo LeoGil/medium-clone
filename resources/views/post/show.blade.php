@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 
-                <x-like-section />
+                <x-like-section :post="$post"/>
 
                 <div class="mt-8">
                     <img src="{{ $post->imageUrl() }}" alt="{{ $post->title }}" class="w-full h-auto object-cover rounded shadow">
@@ -38,7 +38,7 @@
                         {{ $post->category->name }}
                     </span>
                 </div>
-                <x-like-section />
+                <x-like-section :post="$post"/>
             </div>
         </div>
     </div>
