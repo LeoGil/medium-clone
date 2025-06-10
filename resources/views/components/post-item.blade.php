@@ -1,6 +1,6 @@
 <div class="flex bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 mb-8">
     <div class="p-5 flex-1">
-        @if (request()->is('/'))
+        @if (request()->is('/') || request()->is('post'))
             <div class="flex gap-2 items-center mb-3">
                 <a href="{{ route('profile.show', $post->user) }}">
                     <x-user-avatar :user="$post->user" w="6" h="6" />
@@ -15,7 +15,12 @@
         </a>
         <div class="mb-5 font-normal text-gray-700 dark:text-gray-400">{{ Str::limit($post->content, 100, '...') }}</div>
         <div class="flex gap-2 text-sm text-gray-600 ">
-            {{ $post->created_at->diffForHumans() }}
+            <span data-tooltip-target="tooltip-default-{{ $post->slug }}">{{ $post->created_at->diffForHumans() }}</span>
+            <div id="tooltip-default-{{ $post->slug }}" role="tooltip"
+                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
+               {{ $post->created_at->format('d M Y H:i') }}
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
             &bull;
             {{ $post->readTime() }} {{ __('min read') }}
             &bull;
@@ -23,6 +28,7 @@
         </div>
     </div>
     <a href="{{ route('post.show', [$post->user->username, $post->slug]) }}">
-        <img class="rounded-l-lg w-48 h-full max-h-48 object-cover" src="{{ Storage::url($post->image) }}" alt="" />
+        <img class="rounded-l-lg w-48 h-full max-h-48 object-cover" src="{{ Storage::url($post->image) }}"
+            alt="" />
     </a>
 </div>
