@@ -7,7 +7,7 @@
                     
                     <div>
                         <x-input-label for="image" :value="__('Image')" />
-                        <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" required />
+                        <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" accept="image/jpeg, image/png, image/jpg, image/gif, image/svg" required />
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     </div>
 
