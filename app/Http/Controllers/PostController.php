@@ -9,14 +9,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
+use function Psy\debug;
+
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest()->with(['user'])->simplePaginate(5);
+        $categorySlug = $request->query('category');
+
+        $query = Post::with('user');
+
+        if ($categorySlug) {
+            $query->whereHas('category', function ($query) use ($categorySlug) {
+                $query->where('slug', $categorySlug);
+            });
+        }
+
+        $posts = $query->latest()->simplePaginate(5);
 
         return view('post.index', compact('posts'));
     }

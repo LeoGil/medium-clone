@@ -24,7 +24,7 @@
             &bull;
             {{ $post->readTime() }} {{ __('min read') }}
             &bull;
-            <a href="#" class="text-blue-600 hover:underline">{{ $post->category->name }}</a>
+            <a href="{{ route('post.index', ['category' => $post->category->slug]) }}" class="text-blue-600 hover:underline">{{ $post->category->name }}</a>
         </div>
     </div>
     <a href="{{ route('post.show', [$post->user->username, $post->slug]) }}">

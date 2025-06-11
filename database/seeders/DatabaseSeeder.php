@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
 
         foreach ($categories as $category) {
             Category::create([
-                'name' => $category
+                'name' => $category,
+                'slug' => str()->slug($category),
             ]);
         }
 
